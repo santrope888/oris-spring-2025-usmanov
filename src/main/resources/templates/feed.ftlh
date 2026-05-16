@@ -1,8 +1,10 @@
+<#import "/spring.ftl" as spring>
+<#include "_macros.ftlh">
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Лента диалогов</title>
+    <title><@spring.message "feed.title"/></title>
     <style>
         body { font-family: Arial; max-width: 600px; margin: 40px auto; }
         .dialog { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 8px; }
@@ -15,11 +17,11 @@
     </style>
 </head>
 <body>
-<a class="back" href="/">🏠 На главную</a>
+<a class="back" href="/"><@spring.message "feed.back.home"/></a>
 <div class="logout">
-    <a href="/logout">Выйти</a>
+    <a href="/logout"><@spring.message "feed.logout"/></a>
 </div>
-<h1>Ваши диалоги</h1>
+<h1><@spring.message "feed.heading"/></h1>
 
 <#if dialogs?has_content>
     <#list dialogs as dialog>
@@ -33,17 +35,18 @@
                 ${(dialog.lastMessage.text?length > 70)?then(dialog.lastMessage.text?substring(0,70) + "...", dialog.lastMessage.text)}
             </div>
             <div class="timestamp">
-                ${dialog.lastMessage.sentAt}
+                <@formatDateTime dialog.lastMessage.sentAt/>
             </div>
             <div>
                 <#if !dialog.lastMessage.read && dialog.lastMessage.recipient.username == currentUsername>
-                    <span style="color: red;">● Новое</span>
+                    <span style="color: red;"><@spring.message "feed.new"/></span>
                 </#if>
             </div>
         </div>
     </#list>
 <#else>
-    <p>У вас пока нет сообщений. Начните диалог!</p>
+    <p><@spring.message "feed.empty"/></p>
 </#if>
+<@footer/>
 </body>
 </html>

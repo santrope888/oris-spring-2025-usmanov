@@ -1,8 +1,10 @@
+<#import "/spring.ftl" as spring>
+<#include "_macros.ftlh">
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Админ-панель: все сообщения</title>
+    <title><@spring.message "admin.title"/></title>
     <style>
         body { font-family: Arial; max-width: 1000px; margin: 20px auto; }
         table { width: 100%; border-collapse: collapse; }
@@ -15,19 +17,19 @@
     </style>
 </head>
 <body>
-    <a class="back" href="/">🏠 На главную</a>
-    <h1>Все сообщения (админ-панель)</h1>
+    <a class="back" href="/"><@spring.message "admin.back.home"/></a>
+    <h1><@spring.message "admin.heading"/></h1>
 
     <#if messages?has_content>
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Отправитель</th>
-                    <th>Получатель</th>
-                    <th>Текст</th>
-                    <th>Дата</th>
-                    <th>Действие</th>
+                    <th><@spring.message "admin.table.id"/></th>
+                    <th><@spring.message "admin.table.sender"/></th>
+                    <th><@spring.message "admin.table.recipient"/></th>
+                    <th><@spring.message "admin.table.text"/></th>
+                    <th><@spring.message "admin.table.date"/></th>
+                    <th><@spring.message "admin.table.action"/></th>
                 </tr>
             </thead>
             <tbody>
@@ -37,14 +39,14 @@
                         <td>${msg.sender.username}</td>
                         <td>${msg.recipient.username}</td>
                         <td>${msg.text}</td>
-                        <td>${msg.sentAt}</td>
+                        <td><@formatDateTime msg.sentAt/></td>
                         <td>
                             <#if msg.text != "<!CENSORED!>">
                                 <form action="/admin/messages/${msg.id}/censor" method="post" style="margin:0">
-                                    <button type="submit" class="btn">Заблокировать</button>
+                                    <button type="submit" class="btn"><@spring.message "admin.censor"/></button>
                                 </form>
                             <#else>
-                                <span>🔒 Заблокировано</span>
+                                <span><@spring.message "admin.censored"/></span>
                             </#if>
                         </td>
                     </tr>
@@ -52,7 +54,8 @@
             </tbody>
         </table>
     <#else>
-        <p>Сообщений пока нет.</p>
+        <p><@spring.message "admin.empty"/></p>
     </#if>
+<@footer/>
 </body>
 </html>

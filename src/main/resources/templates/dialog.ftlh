@@ -1,8 +1,10 @@
+<#import "/spring.ftl" as spring>
+<#include "_macros.ftlh">
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Диалог</title>
+    <title><@spring.message "dialog.title"/></title>
     <style>
         body { font-family: Arial; max-width: 700px; margin: 20px auto; }
         .message { border-bottom: 1px solid #eee; padding: 8px; }
@@ -18,29 +20,30 @@
 </head>
 <body>
 <div>
-    <a class="back" href="/feed">← Назад к диалогам</a>
-    <a class="back" style="float:right" href="/logout">Выйти</a>
+    <a class="back" href="/feed"><@spring.message "dialog.back.feed"/></a>
+    <a class="back" style="float:right" href="/logout"><@spring.message "dialog.logout"/></a>
 </div>
-<h2>Диалог с пользователем</h2>
+<h2><@spring.message "dialog.heading"/></h2>
 <div id="messages">
     <#if messages?has_content>
         <#list messages as msg>
             <div class="message <#if msg.sender.username == currentUsername>my-message<#else>other-message</#if>">
                 <div class="meta">
-                    <strong>${msg.sender.username}</strong> · ${msg.sentAt}
-                    <#if msg.read> ✓ прочитано</#if>
+                    <strong>${msg.sender.username}</strong> · <@formatDateTime msg.sentAt/>
+                    <#if msg.read> <@spring.message "dialog.read"/></#if>
                 </div>
                 <div class="message-text">${msg.text}</div>
             </div>
         </#list>
     <#else>
-        <p>Сообщений пока нет. Напишите первое сообщение!</p>
+        <p><@spring.message "dialog.empty"/></p>
     </#if>
 </div>
 
 <form action="/feed/${recipientId}" method="post">
-    <textarea name="text" rows="3" placeholder="Ваше сообщение..." required></textarea><br>
-    <button type="submit">Отправить</button>
+    <textarea name="text" rows="3" placeholder="<@spring.message code='dialog.placeholder'/>" required></textarea><br>
+    <button type="submit"><@spring.message "dialog.send"/></button>
 </form>
+<@footer/>
 </body>
 </html>

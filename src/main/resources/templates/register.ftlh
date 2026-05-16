@@ -1,8 +1,10 @@
+<#import "/spring.ftl" as spring>
+<#include "_macros.ftlh">
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Регистрация</title>
+    <title><@spring.message "register.title"/></title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 400px; margin: 50px auto; }
         input, button { display: block; width: 100%; margin-bottom: 10px; padding: 8px; }
@@ -10,19 +12,20 @@
     </style>
 </head>
 <body>
-<h2>Регистрация в соцсети</h2>
+<h2><@spring.message "register.heading"/></h2>
 
 <#if (error??)>
     <div class="error">
-        Ошибка: пользователь с таким именем уже существует. Выберите другое имя.
+        <@spring.message "register.error.duplicate"/>
     </div>
 </#if>
 
 <form action="/register" method="post">
-    <input type="text" name="username" placeholder="Имя пользователя" required autofocus>
-    <input type="password" name="password" placeholder="Пароль" required>
-    <button type="submit">Зарегистрироваться</button>
+    <input type="text" name="username" placeholder="<@spring.message code='register.placeholder.username'/>" required autofocus>
+    <input type="password" name="password" placeholder="<@spring.message code='register.placeholder.password'/>" required>
+    <button type="submit"><@spring.message "register.button"/></button>
 </form>
-<p>Уже есть аккаунт? <a href="/login">Войти</a></p>
+<p><@spring.message "register.have.account"/> <a href="/login"><@spring.message "register.link.login"/></a></p>
+<@footer/>
 </body>
 </html>
