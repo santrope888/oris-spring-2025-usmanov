@@ -15,7 +15,7 @@
         <textarea name="description" rows="4" cols="50">${product.description!}</textarea><br><br>
 
         <label>Цена (руб):</label><br>
-        <input type="number" step="0.01" name="price" value="${product.price!}" required><br><br>
+        <input type="number" step="0.01" name="price" value="<#if product.price??>${product.price?c}</#if>" required><br><br>
 
         <label>Категория:</label><br>
         <select name="category.id" required>
