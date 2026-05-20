@@ -1,13 +1,13 @@
-package com.example.cw2;
+package ru.itis.controlworkstub;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Cw2ApplicationTests {
+class ControlWorkStubApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }
